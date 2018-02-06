@@ -29,10 +29,9 @@ class SingletonLogger:
 
     def __new__(cls, *args, **kwargs):
         if cls.instance is None:
-            if 'filename' in kwargs:
-                cls.instance = SingletonLogger.__SingletonLogger(kwargs['filename'])
-            else:
-                cls.instance = SingletonLogger.__SingletonLogger()
+            cls.instance = SingletonLogger.__SingletonLogger(**kwargs)
+        if "filename" in kwargs and kwargs["filename"] != cls.instance.filename:
+            cls.instance = SingletonLogger.__SingletonLogger(**kwargs)
 
         return cls.instance
 
